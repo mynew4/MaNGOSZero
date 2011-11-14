@@ -1379,7 +1379,7 @@ DROP TABLE IF EXISTS `db_version`;
 CREATE TABLE `db_version` (
   `version` varchar(120) DEFAULT NULL,
   `creature_ai_version` varchar(120) DEFAULT NULL,
-  `required_z1849_11876_01_mangos_creature_linking_template` bit(1) DEFAULT NULL
+  `required_z1868_11852_01_mangos_gossip_menu` bit(1) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Used DB version notes';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1389,7 +1389,7 @@ CREATE TABLE `db_version` (
 
 LOCK TABLES `db_version` WRITE;
 /*!40000 ALTER TABLE `db_version` DISABLE KEYS */;
-INSERT INTO `db_version` (`version`, `creature_ai_version`, `required_z1849_11876_01_mangos_creature_linking_template`) VALUES
+INSERT INTO `db_version` (`version`, `creature_ai_version`, `required_z1868_11852_01_mangos_gossip_menu`) VALUES
 ('Mangos default database.','Creature EventAI not provided.',NULL);
 /*!40000 ALTER TABLE `db_version` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2053,13 +2053,14 @@ DROP TABLE IF EXISTS `gossip_menu`;
 CREATE TABLE `gossip_menu` (
   `entry` smallint(6) unsigned NOT NULL DEFAULT '0',
   `text_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `script_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `cond_1` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `cond_1_val_1` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `cond_1_val_2` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `cond_2` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `cond_2_val_1` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `cond_2_val_2` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`entry`,`text_id`)
+  PRIMARY KEY (`entry`,`text_id`,`script_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
