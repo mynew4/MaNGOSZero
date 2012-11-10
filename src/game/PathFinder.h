@@ -60,10 +60,10 @@ class PathInfo
         bool Update(const float destX, const float destY, const float destZ,
                     bool useStraightPath = false, bool forceDest = false);
 
-        inline void getStartPosition(float &x, float &y, float &z) { x = m_startPosition.x; y = m_startPosition.y; z = m_startPosition.z; }
-        inline void getNextPosition(float &x, float &y, float &z) { x = m_nextPosition.x; y = m_nextPosition.y; z = m_nextPosition.z; }
-        inline void getEndPosition(float &x, float &y, float &z) { x = m_endPosition.x; y = m_endPosition.y; z = m_endPosition.z; }
-        inline void getActualEndPosition(float &x, float &y, float &z) { x = m_actualEndPosition.x; y = m_actualEndPosition.y; z = m_actualEndPosition.z; }
+        inline void getStartPosition(float& x, float& y, float& z) { x = m_startPosition.x; y = m_startPosition.y; z = m_startPosition.z; }
+        inline void getNextPosition(float& x, float& y, float& z) { x = m_nextPosition.x; y = m_nextPosition.y; z = m_nextPosition.z; }
+        inline void getEndPosition(float& x, float& y, float& z) { x = m_endPosition.x; y = m_endPosition.y; z = m_endPosition.z; }
+        inline void getActualEndPosition(float& x, float& y, float& z) { x = m_actualEndPosition.x; y = m_actualEndPosition.y; z = m_actualEndPosition.z; }
 
         inline PathNode getStartPosition() const { return m_startPosition; }
         inline PathNode getNextPosition() const { return m_nextPosition; }
@@ -106,12 +106,12 @@ class PathInfo
             m_pathPoints.clear();
         }
 
-        dtPolyRef getPathPolyByPosition(dtPolyRef *polyPath, uint32 polyPathSize, const float* point, float *distance = NULL);
-        dtPolyRef getPolyByLocation(const float* point, float *distance);
+        dtPolyRef getPathPolyByPosition(dtPolyRef* polyPath, uint32 polyPathSize, const float* point, float* distance = NULL);
+        dtPolyRef getPolyByLocation(const float* point, float* distance);
         bool HaveTiles(const PathNode p) const;
 
         void BuildPolyPath(PathNode startPos, PathNode endPos);
-        void BuildPointPath(float *startPoint, float *endPoint);
+        void BuildPointPath(float* startPoint, float* endPoint);
         void BuildShortcut();
 
         NavTerrain getNavTerrain(float x, float y, float z);
@@ -125,9 +125,9 @@ class PathInfo
                             const dtPolyRef* path, const uint32 pathSize, float* steerPos,
                             unsigned char& steerPosFlag, dtPolyRef& steerPosRef);
         dtStatus findSmoothPath(const float* startPos, const float* endPos,
-                              const dtPolyRef* polyPath, const uint32 polyPathSize,
-                              float* smoothPath, int* smoothPathSize, bool &usedOffmesh,
-                              const uint32 smoothPathMaxSize);
+                                const dtPolyRef* polyPath, const uint32 polyPathSize,
+                                float* smoothPath, int* smoothPathSize, bool& usedOffmesh,
+                                const uint32 smoothPathMaxSize);
 };
 
 inline bool inRangeYZX(const float* v1, const float* v2, const float r, const float h)
@@ -135,7 +135,7 @@ inline bool inRangeYZX(const float* v1, const float* v2, const float r, const fl
     const float dx = v2[0] - v1[0];
     const float dy = v2[1] - v1[1]; // elevation
     const float dz = v2[2] - v1[2];
-    return (dx*dx + dz*dz) < r*r && fabsf(dy) < h;
+    return (dx * dx + dz * dz) < r * r && fabsf(dy) < h;
 }
 
 inline bool inRange(const PathNode p1, const PathNode p2,
@@ -144,7 +144,7 @@ inline bool inRange(const PathNode p1, const PathNode p2,
     const float dx = p2.x - p1.x;
     const float dy = p2.y - p1.y;
     const float dz = p2.z - p1.z;
-    return (dx*dx + dy*dy) < r*r && fabsf(dz) < h;
+    return (dx * dx + dy * dy) < r * r && fabsf(dz) < h;
 }
 
 #endif

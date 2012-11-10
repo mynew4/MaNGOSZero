@@ -115,7 +115,7 @@ class CreatureLinkingMgr
         CreatureLinkingInfo const* GetLinkedTriggerInformation(Creature* pCreature);
 
     private:
-        typedef std::multimap<uint32 /*slaveEntry*/, CreatureLinkingInfo> CreatureLinkingMap;
+        typedef std::multimap < uint32 /*slaveEntry*/, CreatureLinkingInfo > CreatureLinkingMap;
         typedef std::pair<CreatureLinkingMap::const_iterator, CreatureLinkingMap::const_iterator> CreatureLinkingMapBounds;
 
         // Storage of Data: npc_entry_slave, (map, npc_entry_master, flag, master_db_guid[If Unique])
@@ -164,9 +164,9 @@ class CreatureLinkingHolder
             GuidList linkedGuids;
         };
 
-        typedef std::multimap<uint32 /*masterEntry*/, FlagAndGuids> HolderMap;
+        typedef std::multimap < uint32 /*masterEntry*/, FlagAndGuids > HolderMap;
         typedef std::pair<HolderMap::iterator, HolderMap::iterator> HolderMapBounds;
-        typedef UNORDERED_MAP<uint32 /*Entry*/, ObjectGuid> BossGuidMap;
+        typedef UNORDERED_MAP < uint32 /*Entry*/, ObjectGuid > BossGuidMap;
 
         // Helper function, to process a slave list
         void ProcessSlaveGuidList(CreatureLinkingEvent eventType, Creature* pSource, uint32 flag, GuidList& slaveGuidList, Unit* pEnemy);

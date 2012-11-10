@@ -71,12 +71,12 @@ struct AuctionEntry
     uint32 GetHouseFaction() const { return auctionHouseEntry->faction; }
     uint32 GetAuctionCut() const;
     uint32 GetAuctionOutBid() const;
-    bool BuildAuctionInfo(WorldPacket & data) const;
+    bool BuildAuctionInfo(WorldPacket& data) const;
     void DeleteFromDB() const;
     void SaveToDB() const;
 };
 
-//this class is used as auctionhouse instance
+// this class is used as auctionhouse instance
 class AuctionHouseObject
 {
     public:
@@ -91,17 +91,17 @@ class AuctionHouseObject
 
         uint32 GetCount() { return AuctionsMap.size(); }
 
-        AuctionEntryMap *GetAuctions() { return &AuctionsMap; }
+        AuctionEntryMap* GetAuctions() { return &AuctionsMap; }
 
-        void AddAuction(AuctionEntry *ah)
+        void AddAuction(AuctionEntry* ah)
         {
-            MANGOS_ASSERT( ah );
+            MANGOS_ASSERT(ah);
             AuctionsMap[ah->Id] = ah;
         }
 
         AuctionEntry* GetAuction(uint32 id) const
         {
-            AuctionEntryMap::const_iterator itr = AuctionsMap.find( id );
+            AuctionEntryMap::const_iterator itr = AuctionsMap.find(id);
             return itr != AuctionsMap.end() ? itr->second : NULL;
         }
 
@@ -115,9 +115,9 @@ class AuctionHouseObject
         void BuildListBidderItems(WorldPacket& data, Player* player, uint32& count, uint32& totalcount);
         void BuildListOwnerItems(WorldPacket& data, Player* player, uint32& count, uint32& totalcount);
         void BuildListAuctionItems(WorldPacket& data, Player* player,
-            std::wstring const& searchedname, uint32 listfrom, uint32 levelmin, uint32 levelmax, uint32 usable,
-            uint32 inventoryType, uint32 itemClass, uint32 itemSubClass, uint32 quality,
-            uint32& count, uint32& totalcount);
+                                   std::wstring const& searchedname, uint32 listfrom, uint32 levelmin, uint32 levelmax, uint32 usable,
+                                   uint32 inventoryType, uint32 itemClass, uint32 itemSubClass, uint32 quality,
+                                   uint32& count, uint32& totalcount);
     private:
         AuctionEntryMap AuctionsMap;
 };
@@ -142,17 +142,17 @@ class AuctionHouseMgr
             return NULL;
         }
 
-        //auction messages
-        void SendAuctionWonMail( AuctionEntry * auction );
-        void SendAuctionSuccessfulMail( AuctionEntry * auction );
-        void SendAuctionExpiredMail( AuctionEntry * auction );
-        static uint32 GetAuctionDeposit(AuctionHouseEntry const* entry, uint32 time, Item *pItem);
+        // auction messages
+        void SendAuctionWonMail(AuctionEntry* auction);
+        void SendAuctionSuccessfulMail(AuctionEntry* auction);
+        void SendAuctionExpiredMail(AuctionEntry* auction);
+        static uint32 GetAuctionDeposit(AuctionHouseEntry const* entry, uint32 time, Item* pItem);
 
         static uint32 GetAuctionHouseTeam(AuctionHouseEntry const* house);
         static AuctionHouseEntry const* GetAuctionHouseEntry(Unit* unit);
 
     public:
-        //load first auction items, because of check if item exists, when loading
+        // load first auction items, because of check if item exists, when loading
         void LoadAuctionItems();
         void LoadAuctions();
 

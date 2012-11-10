@@ -27,26 +27,26 @@
 
 //----- Point Movement Generator
 template<class T>
-void PointMovementGenerator<T>::Initialize(T &unit)
+void PointMovementGenerator<T>::Initialize(T& unit)
 {
     if (!unit.IsStopped())
         unit.StopMoving();
 
-    unit.addUnitState(UNIT_STAT_ROAMING|UNIT_STAT_ROAMING_MOVE);
+    unit.addUnitState(UNIT_STAT_ROAMING | UNIT_STAT_ROAMING_MOVE);
 
     Traveller<T> traveller(unit);
 
-    if(m_usePathfinding)
+    if (m_usePathfinding)
     {
         PathInfo path(&unit, i_x, i_y, i_z);
         PointPath pointPath = path.getFullPath();
 
-        float speed = traveller.Speed() * 0.001f; // in ms
+        float speed = traveller.Speed() * 0.001f;           // in ms
         uint32 traveltime = uint32(pointPath.GetTotalLength() / speed);
         SplineFlags flags = (unit.GetTypeId() == TYPEID_UNIT) ? ((Creature*)&unit)->GetSplineFlags() : SPLINEFLAG_WALKMODE;
         unit.SendMonsterMoveByPath(pointPath, 1, pointPath.size(), flags, traveltime);
 
-        PathNode p = pointPath[pointPath.size()-1];
+        PathNode p = pointPath[pointPath.size() - 1];
         i_destinationHolder.SetDestination(traveller, p.x, p.y, p.z, false);
     }
     else
@@ -57,36 +57,36 @@ void PointMovementGenerator<T>::Initialize(T &unit)
 }
 
 template<class T>
-void PointMovementGenerator<T>::Finalize(T &unit)
+void PointMovementGenerator<T>::Finalize(T& unit)
 {
-    unit.clearUnitState(UNIT_STAT_ROAMING|UNIT_STAT_ROAMING_MOVE);
+    unit.clearUnitState(UNIT_STAT_ROAMING | UNIT_STAT_ROAMING_MOVE);
 
     if (i_destinationHolder.HasArrived())
         MovementInform(unit);
 }
 
 template<class T>
-void PointMovementGenerator<T>::Interrupt(T &unit)
+void PointMovementGenerator<T>::Interrupt(T& unit)
 {
-    unit.clearUnitState(UNIT_STAT_ROAMING|UNIT_STAT_ROAMING_MOVE);
+    unit.clearUnitState(UNIT_STAT_ROAMING | UNIT_STAT_ROAMING_MOVE);
 }
 
 template<class T>
-void PointMovementGenerator<T>::Reset(T &unit)
+void PointMovementGenerator<T>::Reset(T& unit)
 {
     if (!unit.IsStopped())
         unit.StopMoving();
 
-    unit.addUnitState(UNIT_STAT_ROAMING|UNIT_STAT_ROAMING_MOVE);
+    unit.addUnitState(UNIT_STAT_ROAMING | UNIT_STAT_ROAMING_MOVE);
 }
 
 template<class T>
-bool PointMovementGenerator<T>::Update(T &unit, const uint32 &diff)
+bool PointMovementGenerator<T>::Update(T& unit, const uint32& diff)
 {
-    if(!&unit)
+    if (!&unit)
         return false;
 
-    if(unit.hasUnitState(UNIT_STAT_CAN_NOT_MOVE))
+    if (unit.hasUnitState(UNIT_STAT_CAN_NOT_MOVE))
     {
         unit.clearUnitState(UNIT_STAT_ROAMING_MOVE);
         return true;
@@ -113,7 +113,7 @@ void PointMovementGenerator<Player>::MovementInform(Player&)
 }
 
 template <>
-void PointMovementGenerator<Creature>::MovementInform(Creature &unit)
+void PointMovementGenerator<Creature>::MovementInform(Creature& unit)
 {
     if (unit.AI())
         unit.AI()->MovementInform(POINT_MOTION_TYPE, id);
@@ -122,7 +122,7 @@ void PointMovementGenerator<Creature>::MovementInform(Creature &unit)
     {
         TemporarySummon* pSummon = (TemporarySummon*)(&unit);
         if (pSummon->GetSummonerGuid().IsCreature())
-            if(Creature* pSummoner = unit.GetMap()->GetCreature(pSummon->GetSummonerGuid()))
+            if (Creature* pSummoner = unit.GetMap()->GetCreature(pSummon->GetSummonerGuid()))
                 if (pSummoner->AI())
                     pSummoner->AI()->SummonedMovementInform(&unit, POINT_MOTION_TYPE, id);
     }
@@ -136,12 +136,12 @@ template void PointMovementGenerator<Player>::Interrupt(Player&);
 template void PointMovementGenerator<Creature>::Interrupt(Creature&);
 template void PointMovementGenerator<Player>::Reset(Player&);
 template void PointMovementGenerator<Creature>::Reset(Creature&);
-template bool PointMovementGenerator<Player>::Update(Player &, const uint32 &diff);
-template bool PointMovementGenerator<Creature>::Update(Creature&, const uint32 &diff);
+template bool PointMovementGenerator<Player>::Update(Player&, const uint32& diff);
+template bool PointMovementGenerator<Creature>::Update(Creature&, const uint32& diff);
 
-void AssistanceMovementGenerator::Finalize(Unit &unit)
+void AssistanceMovementGenerator::Finalize(Unit& unit)
 {
-    unit.clearUnitState(UNIT_STAT_ROAMING|UNIT_STAT_ROAMING_MOVE);
+    unit.clearUnitState(UNIT_STAT_ROAMING | UNIT_STAT_ROAMING_MOVE);
 
     ((Creature*)&unit)->SetNoCallAssistance(false);
     ((Creature*)&unit)->CallAssistance();
