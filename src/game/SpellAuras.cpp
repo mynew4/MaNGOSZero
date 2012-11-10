@@ -1193,7 +1193,7 @@ void Aura::TriggerSpell()
                 if (target->GetTypeId() != TYPEID_UNIT)
                     return;
                 // expected selection current fight target
-                triggerTarget = ((Creature*)target)->SelectAttackingTarget(ATTACKING_TARGET_TOPAGGRO, 0, triggeredSpellInfo);
+                triggerTarget = ((Creature*)target)->SelectAttackingTarget(ATTACKING_TARGET_TOPAGGRO, 0);
                 if (!triggerTarget)
                     return;
                 break;
