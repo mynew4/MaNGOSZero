@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2005-2011 MaNGOS <http://getmangos.com/>
- * Copyright (C) 2009-2011 MaNGOSZero <https://github.com/mangos-zero>
+ * Copyright (C) 2005-2012 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2009-2012 MaNGOSZero <https://github.com/mangos-zero>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,32 +17,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef WDTFILE_H
-#define WDTFILE_H
+#ifndef VMAPEXPORT_H
+#define VMAPEXPORT_H
 
-#include "mpq_libmpq04.h"
-#include "wmo.h"
-#include <string>
-#include "stdlib.h"
-
-class ADTFile;
-
-class WDTFile
+enum ModelFlags
 {
-    public:
-        WDTFile(char* file_name, char* file_name1);
-        ~WDTFile(void);
-        bool init(char* map_id, unsigned int mapID);
-
-        string* gWmoInstansName;
-        int gnWMO, nMaps;
-
-        ADTFile* GetMap(int x, int z);
-
-    private:
-        MPQFile WDT;
-        bool maps[64][64];
-        string filename;
+    MOD_M2 = 1,
+    MOD_WORLDSPAWN = 1 << 1,
+    MOD_HAS_BOUND = 1 << 2
 };
+
+extern const char* szWorkDirWmo;
+extern const char* szRawVMAPMagic;                          // vmap magic string for extracted raw vmap data
 
 #endif
